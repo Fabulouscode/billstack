@@ -26,7 +26,7 @@ class RegisterUserRequest extends FormRequest
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'phone' => 'nullable|string|max:20',
-            'password' => 'required|string|min:6',
+            'password' => 'required|string|min:8',
             'business_name' => 'nullable|string|max:255',
             'logo_url' => 'nullable|url',
         ];

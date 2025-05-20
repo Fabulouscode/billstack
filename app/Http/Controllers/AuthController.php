@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterUserRequest;
 use App\Http\Resources\UserResource;
@@ -64,5 +65,14 @@ class AuthController extends Controller
         }
 
         return Hash::check($request->password, $user->password) ? $user : null;
+    }
+
+    public function change(ChangePasswordRequest $request)
+    {
+        $request->user()->update([
+            'password' => $request->password,
+        ]);
+
+        return $this->jsonResponse(HTTP_SUCCESS, 'Password updated successfully');
     }
 }
