@@ -11,6 +11,7 @@ class OTP extends Model
     use HasFactory, HasUuid;
 
     public $incrementing = false;
+    protected $keyType = 'string';
 
     protected $guarded = [];
 
