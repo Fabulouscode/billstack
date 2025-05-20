@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
+use App\Traits\HasUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Transaction extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUuid;
+
+    public $incrementing = false;
 
     protected $guarded = [];
 
@@ -16,7 +19,7 @@ class Transaction extends Model
         return $this->belongsTo(User::class);
     }
 
-     public function invoice()
+    public function invoice()
     {
         return $this->belongsTo(Invoice::class);
     }

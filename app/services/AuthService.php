@@ -6,10 +6,10 @@ use App\Enums\OtpTypeEnum;
 use App\Jobs\SendVerificationEmail;
 use App\Models\OTP;
 use App\Models\User;
+use App\Traits\GeneratesUuid;
 use App\Utils\OtpGenerator;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 
 class AuthService
 {
@@ -17,7 +17,6 @@ class AuthService
     {
         return DB::transaction(function () use ($data) {
             $user = User::create([
-                'id' => Str::uuid(),
                 'name' => $data['name'],
                 'email' => $data['email'],
                 'phone' => $data['phone'],
@@ -31,7 +30,6 @@ class AuthService
            SendVerificationEmail::dispatch($user, $otpCode);
 
             OTP::create([
-                'id' => Str::uuid(),
                 'user_id' => $user->id,
                 'otp_code' => $otpCode,
                 'type' => OtpTypeEnum::EMAIL->value,

@@ -2,14 +2,17 @@
 
 namespace App\Models;
 
+use App\Traits\HasUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class OTP extends Model
 {
-     use HasFactory;
+    use HasFactory, HasUuid;
 
-     protected $guarded = [];
+    public $incrementing = false;
+
+    protected $guarded = [];
 
     protected $table = 'otps';
 

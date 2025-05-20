@@ -19,10 +19,6 @@ class OTPController extends Controller
 
         $user = User::where('email', $request->email)->first();
 
-        if (!$user) {
-            throw ValidationException::withMessages(['email' => 'User not found.']);
-        }
-
         $otpService->verify($user, $request->otp, OtpTypeEnum::EMAIL);
 
         return $this->jsonResponse(HTTP_SUCCESS, 'Email verified successfully.');
