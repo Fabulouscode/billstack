@@ -6,7 +6,7 @@ use App\Traits\HasUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Transaction extends Model
+class OTP extends Model
 {
     use HasFactory, HasUuid;
 
@@ -14,13 +14,15 @@ class Transaction extends Model
 
     protected $guarded = [];
 
+    protected $table = 'otps';
+
+    protected $casts = [
+        'otp_code' => 'encrypted',
+    ];
+
+
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function invoice()
-    {
-        return $this->belongsTo(Invoice::class);
     }
 }
