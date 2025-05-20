@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -18,11 +19,14 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
+        'id', 
         'name',
         'email',
+        'phone',
         'password',
+        'business_name',
+        'logo_url',
     ];
-
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -69,5 +73,10 @@ class User extends Authenticatable
     public function subscribers()
     {
         return $this->hasMany(Subscriber::class);
+    }
+
+    public function setPasswordAttribute(string $value)
+    {
+        $this->attributes['password'] = Hash::make($value);
     }
 }
