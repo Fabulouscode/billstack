@@ -7,12 +7,13 @@ use App\Http\Resources\InvoiceResource;
 use App\Models\Invoice;
 use App\Services\InvoiceService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class InvoiceController extends Controller
 {
-    public function index()
+    public function index(Request $request, InvoiceService $invoiceService): JsonResponse
     {
-        $invoices = Invoice::with(['client', 'items'])->paginate();
+         $invoices = $invoiceService->getFilteredInvoices($request)->paginate();
 
         return $this->wrapJsonResponse(InvoiceResource::collection($invoices)->response(), 'Invoice retrieved successfully');
     }
