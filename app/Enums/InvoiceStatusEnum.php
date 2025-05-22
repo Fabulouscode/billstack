@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum InvoiceStatus: string
+enum InvoiceStatusEnum: string
 {
     case DRAFT = 'draft';
     case SENT = 'sent';
